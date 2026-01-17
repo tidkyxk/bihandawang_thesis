@@ -1,0 +1,34 @@
+[
+  {
+    "title": "日本人の本音",
+    "url": "https://bakusai.com/thr_res/acode=13/ctrid=1/ctgid=150/bid=2396/tid=2905289/tp=1/",
+    "comment_count": 111,
+    "post_time": "2007-03-04 14:02:00",
+    "sentiment": "消极",
+    "reason": "文本充斥针对中国人、朝鲜人等的仇恨与辱骂性言论（包括人身攻击、侮辱性称呼和‘死ね’等呼吁），情感极为负面并具有煽动性。"
+  },
+  {
+    "title": "武漢について⑧",
+    "url": "https://bakusai.com/thr_res/acode=13/ctrid=1/ctgid=150/bid=2396/tid=7589433/tp=1/",
+    "comment_count": 624,
+    "post_time": "2019-07-07 19:30:00",
+    "sentiment": "消极",
+    "reason": "文本中大量针对“中国人”的仇恨与暴力性言论、对武汉的负面指控与恐惧描述占主导，虽夹杂少量性兴奋或对武漢的赞美句子，但整体情绪以仇恨、恐惧和攻击性为主。"
+  },
+  {
+    "title": "🔥中国軍よ、南京大虐殺を思い出すのだ🔥",
+    "url": "https://bakusai.com/thr_res/acode=13/ctrid=1/ctgid=150/bid=2396/tid=13002175/tp=1/",
+    "comment_count": 14,
+    "post_time": "2025-11-29 09:51:00",
+    "sentiment": "消极",
+    "reason": "文本充斥仇恨性与煽动性言论（辱骂、鼓吹打倒、刀祸性措辞）、历史否认与民族主义宣言，整体情绪敌对、攻击性强，属消极倾向。"
+  },
+  {
+    "title": "溶けるトイレットペーパーすら造れない低技術国な中国",
+    "url": "https://bakusai.com/thr_res/acode=13/ctrid=1/ctgid=150/bid=2396/tid=12986808/tp=1/",
+    "comment_count": 15,
+    "post_time": "2025-11-20 19:50:00",
+    "sentiment": "消极",
+    "reason": "文本充满对中国人及中共的侮辱、贬低和污蔑性表述（如“糞”“不潔”“ゴキブリ”“野蛮人”等）、嘲讽语气和仇视性语言，整体情感明显为负面。"
+  }
+]

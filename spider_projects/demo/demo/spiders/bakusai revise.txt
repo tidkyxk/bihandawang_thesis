@@ -1,0 +1,666 @@
+12.14 test1
+import scrapy
+
+class BakusaiSpider(scrapy.Spider):
+    name = "bakusai"
+    allowed_domains = ["bakusai.com"]
+    start_urls = [
+        "https://bakusai.com/areatop/acode=13/ctrid=1/"
+    ]
+
+    def parse(self, response):
+        for post in response.css('.thread_list .thread_item'):
+            yield {
+                'title': post.css('.thread_title::text').get(),
+                'link': post.css('a::attr(href)').get(),
+                'author': post.css('.author_name::text').get(),
+                'date': post.css('.post_date::text').get(),
+            }
+
+        next_page = response.css('a.next_page::attr(href)').get()
+        if next_page:
+            yield response.follow(next_page, self.parse)
+结果：none
+
+test 2
+import scrapy
+
+
+class BakusaiSpider(scrapy.Spider):
+    name = "bakusai"
+    allowed_domains = ["bakusai.com"]
+    start_urls = [
+        "https://bakusai.com/areatop/acode=13/ctrid=1/"
+    ]
+
+    def parse(self, response):
+        for post in response.css("ul.thread li"):
+            title = post.css("a::text").get()
+            link = post.css("a::attr(href)").get()
+
+            if title and link:
+                yield {
+                    "title": title.strip(),
+                    "link": response.urljoin(link),
+                }
+结果：[
+
+][
+
+]
+
+test3
+import scrapy
+import re
+
+
+class BakusaiSpider(scrapy.Spider):
+    name = "bakusai"
+    allowed_domains = ["bakusai.com"]
+
+    start_urls = [
+        # 东京 → 政经/国际相关区域（你也可以换成别的地区）
+        "https://bakusai.com/thr_tl/acode=13/ctrid=1/"
+    ]
+
+    # 中国相关关键词（可自行扩展）
+    CHINA_KEYWORDS = [
+        "中国",
+        "中共",
+        "中国政府",
+        "北京",
+        "習近平",
+        "習主席",
+        "習",
+        "CPC",
+        "China",
+    ]
+
+    def normalize(self, text: str) -> str:
+        """统一文本格式，便于关键词匹配"""
+        if not text:
+            return ""
+        text = text.lower()
+        text = re.sub(r"\s+", "", text)
+        return text
+
+    # ① 进入各个版块
+    def parse(self, response):
+        for a in response.css("a[href*='/thr_tl/']"):
+            href = a.attrib.get("href")
+            if href:
+                yield response.follow(href, self.parse_thread_list)
+
+    # ② 在帖子标题层面筛选“中国相关”
+    def parse_thread_list(self, response):
+        for a in response.css("a[href*='/thr_res/']"):
+            title = a.xpath("string(.)").get()
+            href = a.attrib.get("href")
+
+            if not title or not href:
+                continue
+
+            title_norm = self.normalize(title)
+
+            if any(self.normalize(k) in title_norm for k in self.CHINA_KEYWORDS):
+                yield response.follow(
+                    href,
+                    self.parse_thread,
+                    meta={"thread_title": title.strip()}
+                )
+
+        # 翻页（如果有）
+        next_page = response.css("a.next::attr(href)").get()
+        if next_page:
+            yield response.follow(next_page, self.parse_thread_list)
+
+    # ③ 解析帖子详情页
+    def parse_thread(self, response):
+        content = response.xpath("//div[@id='write']//text()").getall()
+        content = "\n".join(t.strip() for t in content if t.strip())
+
+        yield {
+            "thread_title": response.meta.get("thread_title"),
+            "url": response.url,
+            "content": content,
+        }
+test 4
+import scrapy
+
+
+class BakusaiSpider(scrapy.Spider):
+    name = "bakusai"
+    allowed_domains = ["bakusai.com"]
+
+    start_urls = [
+        "https://bakusai.com/areamain/acode=13/ctrid=1/"
+    ]
+
+    # ① 中国版首页 → 各子版块
+    def parse(self, response):
+        for a in response.css("a[href*='/thr_tl/']"):
+            href = a.attrib.get("href")
+            title = a.attrib.get("title", "").strip()
+
+            if href:
+                yield response.follow(
+                    href,
+                    self.parse_thread_list,
+                    meta={"board_title": title}
+                )
+
+    # ② 子版块 → 帖子列表
+    def parse_thread_list(self, response):
+        for a in response.css("a[href*='/thr_res/']"):
+            href = a.attrib.get("href")
+            title = a.attrib.get("title", "").strip()
+
+            if href:
+                yield response.follow(
+                    href,
+                    self.parse_thread,
+                    meta={
+                        "thread_title": title,
+                        "board_title": response.meta.get("board_title"),
+                    }
+                )
+
+        # 翻页（如存在）
+        next_page = response.css("a.next::attr(href)").get()
+        if next_page:
+            yield response.follow(next_page, self.parse_thread_list)
+
+    # ③ 帖子详情页 → 正文
+    def parse_thread(self, response):
+        texts = response.xpath("//div[@id='write']//text()").getall()
+        content = "\n".join(t.strip() for t in texts if t.strip())
+
+        yield {
+            "board": response.meta.get("board_title"),
+            "title": response.meta.get("thread_title"),
+            "url": response.url,
+            "content": content,
+        }
+结果：有，但是被带跑偏，有其他国家地区的内容
+
+test 5 只限定在中国区
+import scrapy
+
+
+class BakusaiChinaSpider(scrapy.Spider):
+    name = "bakusai_china"
+    allowed_domains = ["bakusai.com"]
+
+    # 中国版首页
+    start_urls = [
+        "https://bakusai.com/areamain/acode=13/ctrid=1/"
+    ]
+
+    # ① 中国版首页 → 中国子版块（thr_tl）
+    def parse(self, response):
+        for a in response.css("a[href^='/thr_tl/']"):
+            href = a.attrib.get("href")
+            title = a.attrib.get("title", "").strip()
+
+            # 只允许中国区
+            if not href or "/acode=13/" not in href:
+                continue
+
+            yield response.follow(
+                href,
+                callback=self.parse_thread_list,
+                meta={
+                    "board_title": title,
+                }
+            )
+
+    # ② 中国子版块 → 中国帖子列表（thr_res）
+    def parse_thread_list(self, response):
+        for a in response.css("a[href^='/thr_res/']"):
+            href = a.attrib.get("href")
+            title = a.attrib.get("title", "").strip()
+
+            # 再次保险：只爬中国区帖子
+            if not href or "/acode=13/" not in href:
+                continue
+
+            yield response.follow(
+                href,
+                callback=self.parse_thread,
+                meta={
+                    "board_title": response.meta.get("board_title"),
+                    "thread_title": title,
+                }
+            )
+
+        # 翻页（如果存在）
+        next_page = response.css("a.next::attr(href)").get()
+        if next_page and "/acode=13/" in next_page:
+            yield response.follow(next_page, self.parse_thread_list)
+
+    # ③ 中国帖子详情页 → 正文
+    def parse_thread(self, response):
+        # 保守抓正文（后面我们会再精修）
+        texts = response.xpath(
+            "//div[contains(@class, 'res')]//text()"
+        ).getall()
+
+        content = "\n".join(
+            t.strip() for t in texts if t.strip()
+        )
+
+        yield {
+            "board": response.meta.get("board_title"),
+            "title": response.meta.get("thread_title"),
+            "url": response.url,
+            "content": content,
+        }
+
+test 6 三、为什么你现在抓到的 content 会“这么脏”
+
+你贴出来的 content 里包含了：
+
+❌ 站内规则
+
+❌ JS 代码
+
+❌ 表单
+
+❌ 翻页按钮
+
+❌ 广告脚本
+
+❌ 最新レス壳子
+
+原因只有一个：
+
+你现在是 response.xpath("string(.)") 或直接 .get()
+👉 等于把整页 HTML 当正文了
+以下修改后的
+import scrapy
+from urllib.parse import urljoin, urlparse, parse_qs
+
+
+class BakusaiChinaSpider(scrapy.Spider):
+    name = "bakusai_china"
+    allowed_domains = ["bakusai.com"]
+
+    start_urls = [
+        # 中国版 · 政治经济
+        "https://bakusai.com/thr_tl/acode=13/ctrid=1/ctgid=137/"
+    ]
+
+    def parse(self, response):
+        """
+        解析帖子列表页
+        """
+        for href in response.css("a[href*='/thr_res/']::attr(href)").getall():
+            url = urljoin(response.url, href)
+
+            if self.is_china_thread(url):
+                yield scrapy.Request(url, callback=self.parse_thread)
+
+        # 翻页（bk=1,2,3...）
+        next_page = response.css("a.next::attr(href)").get()
+        if next_page:
+            yield response.follow(next_page, self.parse)
+
+    def parse_thread(self, response):
+        """
+        解析帖子页（只要正文）
+        """
+        title = response.css("h1::text").get()
+
+        # 每一条回复的正文
+        posts = response.css("div.res_body")
+
+        contents = []
+        for p in posts:
+            text = p.xpath("string(.)").get()
+            if text:
+                contents.append(text.strip())
+
+        yield {
+            "title": title,
+            "url": response.url,
+            "content": "\n\n".join(contents)
+        }
+
+    def is_china_thread(self, url: str) -> bool:
+        """
+        严格限定：中国区帖子
+        """
+        qs = parse_qs(urlparse(url).query)
+
+        return (
+            qs.get("acode", [""])[0] == "13"
+            and qs.get("ctrid", [""])[0] == "1"
+        )
+
+结果：出问题，啥也没有、为什么在这个页面上「抓不到帖子链接」？你请求的是：https://bakusai.com/thr_tl/acode=13/ctrid=1/ctgid=137/
+⚠️ 这个页面的真实情况是：
+它不是一个“直接列出帖子链接的普通 HTML 页面”而是：使用 frameset / iframe或返回的是 导航壳 + JS帖子列表在 另一个 URL 里👉 Scrapy 拿到的是“外壳页”，不是“帖子列表页”
+
+test 7
+import scrapy
+
+
+class BakusaiChinaSpider(scrapy.Spider):
+    name = "bakusai_china"
+    allowed_domains = ["bakusai.com"]
+
+    start_urls = [
+        "https://bakusai.com/thr_tl/acode=13/ctrid=1/ctgid=137/"
+    ]
+
+    custom_settings = {
+        "DOWNLOAD_DELAY": 1,
+        "CONCURRENT_REQUESTS_PER_DOMAIN": 1,
+        "DEFAULT_REQUEST_HEADERS": {
+            "User-Agent": (
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/120.0.0.0 Safari/537.36"
+            ),
+            "Accept-Language": "ja,en-US;q=0.9,en;q=0.8",
+            "Referer": "https://bakusai.com/",
+        },
+    }
+
+    def parse(self, response):
+        # 验证是否还被 error 拦
+        if "エラー" in response.text:
+            self.logger.error("❌ 被 bakusai 拦截，返回 error 页面")
+            return
+
+        # 抓帖子链接
+        threads = response.css("a[href*='/thr_res/']")
+
+        self.logger.info(f"✅ 找到 {len(threads)} 个帖子")
+
+        for a in threads:
+            yield {
+                "title": a.xpath("string(.)").get(default="").strip(),
+                "url": response.urljoin(a.attrib.get("href")),
+            }
+结果：啥也没有，被反要曲奇
+
+test8
+import scrapy
+
+
+class BakusaiChinaSpider(scrapy.Spider):
+    name = "bakusai_china"
+    allowed_domains = ["bakusai.com"]
+
+    custom_settings = {
+        "DOWNLOAD_DELAY": 1,
+        "CONCURRENT_REQUESTS_PER_DOMAIN": 1,
+        "FEED_EXPORT_ENCODING": "utf-8",
+        "DEFAULT_REQUEST_HEADERS": {
+            "User-Agent": (
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/120.0.0.0 Safari/537.36"
+            ),
+            "Accept-Language": "ja,en-US;q=0.9,en;q=0.8",
+        },
+    }
+
+    def start_requests(self):
+        # 第一步：访问首页，拿 Cookie
+        yield scrapy.Request(
+            url="https://bakusai.com/",
+            callback=self.after_home,
+        )
+
+    def after_home(self, response):
+        # 第二步：带着 Cookie 访问中国区
+        china_url = "https://bakusai.com/thr_tl/acode=13/ctrid=1/ctgid=137/"
+
+        yield response.follow(
+            china_url,
+            callback=self.parse_thread_list,
+        )
+
+    def parse_thread_list(self, response):
+        if "エラー" in response.text:
+            self.logger.error("❌ 仍然是 error 页面（Cookie 失败）")
+            return
+
+        threads = response.css("a[href*='/thr_res/']")
+
+        self.logger.info(f"✅ 找到 {len(threads)} 个帖子")
+
+        for a in threads:
+            yield {
+                "title": a.xpath("string(.)").get(default="").strip(),
+                "url": response.urljoin(a.attrib.get("href")),
+            }
+test 9 数据清洗
+import scrapy
+
+
+class BakusaiNewsSpider(scrapy.Spider):
+    name = "bakusai_news"
+    allowed_domains = ["bakusai.com"]
+
+    # 👉 这里换成你自己的 thr_res 页面
+    start_urls = [
+        "https://bakusai.com/thr_res/acode=3/ctgid=137/bid=1098/tid=13034308/"
+    ]
+
+    custom_settings = {
+        "DOWNLOAD_DELAY": 1,
+        "COOKIES_ENABLED": True,
+        "DEFAULT_REQUEST_HEADERS": {
+            "User-Agent": (
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/120.0 Safari/537.36"
+            ),
+            "Accept-Language": "ja-JP,ja;q=0.9",
+        },
+    }
+
+    def parse(self, response):
+        # ========= 1. 新闻标题 =========
+        title = response.css(
+            "strong[itemprop='headline']::text"
+        ).get(default="").strip()
+
+        # ========= 2. 新闻正文 =========
+        article_text = "\n".join(
+            response.css("#threadBody ::text").getall()
+        ).strip()
+
+        # ========= 3. 评论 =========
+        comments = response.css("div.res_list_article")
+
+        for c in comments:
+            # 楼层 / 评论ID
+            comment_id = c.attrib.get("id", "")
+
+            # 评论时间
+            comment_time = c.css(
+                "span[itemprop='commentTime']::text"
+            ).get(default="").strip()
+
+            # 评论正文
+            comment_text = "\n".join(
+                c.css("div.resbody ::text").getall()
+            ).strip()
+
+            # 用户名（一般是匿名）
+            username = c.css("dd.name::text").get(default="").strip()
+
+            yield {
+                "url": response.url,
+                "title": title,
+                "article_text": article_text,
+                "comment_id": comment_id,
+                "comment_time": comment_time,
+                "username": username,
+                "comment_text": comment_text,
+                "language": "ja",
+                "source": "bakusai",
+            }
+
+test 10按我喜欢的方式清洗
+import scrapy
+from w3lib.html import remove_tags
+
+
+class BakusaiChinaSpider(scrapy.Spider):
+    name = "bakusai_china"
+    allowed_domains = ["bakusai.com"]
+
+    start_urls = [
+        "https://bakusai.com/thr_tl/acode=13/ctrid=1/ctgid=150/bid=2396/"
+    ]
+
+    custom_settings = {
+        "DOWNLOAD_DELAY": 1,
+        "USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+    }
+
+    def parse(self, response):
+        # 帖子链接
+        thread_links = response.css("a[href*='/thr_res/']::attr(href)").getall()
+
+        for link in thread_links:
+            yield response.follow(link, callback=self.parse_thread)
+
+    def parse_thread(self, response):
+        # ---------- 1. 标题（两级兜底） ----------
+        title = response.css("strong[itemprop='headline']::text").get()
+        if not title:
+            title = response.css("title::text").get()
+
+        if title:
+            title = title.strip()
+
+        # ---------- 2. 新闻正文（可能不存在） ----------
+        article_html = response.css("#threadBody").get()
+        article_text = ""
+
+        if article_html:
+            article_text = remove_tags(article_html)
+            article_text = article_text.replace("\n", " ").strip()
+
+        # ---------- 3. 评论（这是重点） ----------
+        comments = response.css(
+            "div.article.res_list_article div.resbody::text"
+        ).getall()
+
+        comments = [
+            c.strip()
+            for c in comments
+            if c and c.strip()
+        ]
+
+        # ---------- 4. 关键过滤逻辑 ----------
+        # 连评论都没有的，直接不要
+        if not comments:
+            return
+
+        yield {
+            "url": response.url,
+            "title": title,
+            "article_text": article_text,
+            "comments": comments,
+            "language": "ja",
+            "source": "bakusai",
+        }
+最终
+import scrapy
+from w3lib.html import remove_tags
+import re
+
+
+class BakusaiChinaNewsSpider(scrapy.Spider):
+    name = "bakusai_china_news"
+    allowed_domains = ["bakusai.com"]
+
+    # 新闻列表页
+    start_urls = [
+        "https://bakusai.com/areamain/acode=13/ctrid=1/"
+    ]
+
+    custom_settings = {
+        "DOWNLOAD_DELAY": 1,
+        "CONCURRENT_REQUESTS_PER_DOMAIN": 1,
+        "FEED_EXPORT_ENCODING": "utf-8",
+        "USER_AGENT": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/120.0.0.0 Safari/537.36"
+        )
+    }
+
+    def parse(self, response):
+        """
+        列表页解析：
+        - 抓新闻链接（ctgid=137）
+        """
+        self.logger.info(f"当前抓取页面: {response.url}")
+
+        news_links = response.css(
+            "a[href^='/thr_res/'][href*='ctgid=137']::attr(href)"
+        ).getall()
+
+        self.logger.info(f"✅ 发现新闻链接 {len(news_links)} 条")
+
+        for href in news_links:
+            url = response.urljoin(href)
+            yield scrapy.Request(
+                url=url,
+                callback=self.parse_detail
+            )
+
+    def parse_detail(self, response):
+        """
+        新闻详情页解析：
+        - 提取标题
+        - 提取正文（清理制表符、换行和连续空格）
+        - 提取评论
+        """
+        # ---------- 1️⃣ 标题 ----------
+        title = response.css("strong[itemprop='headline']::text").get()
+        if not title:
+            title = response.css("h1::text").get()
+        if title:
+            title = title.strip()
+        else:
+            return  # 没标题就不要了
+
+        # ---------- 2️⃣ 正文 ----------
+        article_html = response.css("div#threadBody[itemprop='articlebody']").get()
+        article_text = ""
+        if article_html:
+            article_text = remove_tags(article_html)
+            # 去掉制表符、换行和连续空格
+            article_text = re.sub(r"[\t\r\n]+", " ", article_text)
+            article_text = re.sub(r"\s{2,}", " ", article_text)
+            article_text = article_text.strip()
+
+        # ---------- 3️⃣ 评论 ----------
+        raw_comments = response.css("div.resbody[itemprop='commentText'] ::text").getall()
+        comments = []
+        for c in raw_comments:
+            c = c.strip()
+            if not c:
+                continue
+            if c.startswith(">>") and c[2:].isdigit():
+                continue
+            if len(c) < 3:
+                continue
+            comments.append(c)
+
+        # ---------- 4️⃣ 输出 ----------
+        yield {
+            "title": title,
+            "article_text": article_text,
+            "comments": comments
+        }
+
