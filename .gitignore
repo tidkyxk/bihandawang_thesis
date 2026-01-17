@@ -1,3 +1,12 @@
 .idea/
 __pycache__/ 
 *.pyc 
+# secrets
+config_secret.py
+**/config_secret.py
+
+# python cache
+__pycache__/
+*.pyc
+
+my_revise_log/
