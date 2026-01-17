@@ -6,7 +6,7 @@ import os
 os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
 
 # 文件路径
-INPUT_FILE = "bakusai_current_month.json"
+INPUT_FILE = "forum_crawl/bakusai_current_month.json"
 OUTPUT_FILE = "bakusai_current_month_translated.json"
 
 # 加载 M2M100 模型

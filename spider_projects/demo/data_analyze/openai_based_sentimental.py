@@ -6,8 +6,8 @@ import time
 import os
 openai.api_key = os.getenv("OPENAI_API_KEY")
  # 替换成你的 OpenAI API Key
-INPUT_FILE = "bakusai_current_month.json"
-OUTPUT_FILE = "bakusai_sentiment.json"
+INPUT_FILE = "forum_crawl/bakusai_current_month.json"
+OUTPUT_FILE = "forum_crawl/bakusai_sentiment.json"
 MODEL = "gpt-5-mini"  # 使用 GPT-5-mini 模型
 SLEEP_TIME = 1  # 每次请求间隔，避免频率过高
 

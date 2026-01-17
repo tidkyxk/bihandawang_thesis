@@ -1,0 +1,184 @@
+[
+  {
+    "url": "https://bakusai.com/thr_res/acode=13/ctrid=1/ctgid=137/bid=2494/tid=13048452/bk=1/",
+    "title": "中国の新職業、商品を海外に販売する懸け橋となる「越境EC運営管理師」",
+    "article_sentiment": {
+      "sentiment": "积极",
+      "reason": "```json\n{\n  \"sentiment\": \"积极\",\n  \"reason\": \"文本整体语气积极向上，使用了“急速な発展”“急増”“堂々と名を連ねる”“人気を集める”“創意あふれる”“影響力を拡大”等大量正面词汇，描述了跨境电子商务行业的增长、新职业的诞生、个人职业发展的成功案例以及中国产品在国际上的受欢迎程度，通篇聚焦于发展、机遇和成就。\"\n}\n```"
+    },
+    "comment_sentiment": {
+      "sentiment": "中性",
+      "reason": "```json\n{\n  \"sentiment\": \"中性\",\n  \"reason\": \"文本内容为不完整的日语或混合语言片段，无法构成连贯的评论内容。从现有片段看，用词无明显情感色彩，整体缺乏可判断情感倾向的完整语义表达。\"\n}\n```"
+    },
+    "sentiment_alignment": "不一致",
+    "total_comments": 1
+  },
+  {
+    "url": "https://bakusai.com/thr_res/acode=13/ctrid=1/ctgid=137/bid=1177/tid=13047296/bk=1/",
+    "title": "インフルエンサー宮崎麗果、脱税で告発される",
+    "article_sentiment": {
+      "sentiment": "积极",
+      "reason": "```json\n{\n    \"sentiment\": \"消极\",\n    \"reason\": \"文本整体语气和用词聚焦于负面事件，包括逮捕、脱税、伪造文件、家庭纠纷、奢侈生活曝光等指控性描述，未包含任何积极或中性的平衡表述。\"\n}\n```"
+    },
+    "comment_sentiment": {
+      "sentiment": "消极",
+      "reason": "```json\n{\n  \"sentiment\": \"消极\",\n  \"reason\": \"评论区整体充斥着强烈的负面情绪和攻击性言论。大量评论使用侮辱性词汇（如“クズ”、“詐欺師”、“馬鹿”、“鬼畜”、“気持ち悪い”）、极端主张（如“国外追放”、“死刑”），并进行人身攻击和群体性贬低（如针对特定国籍、职业的负面刻板印象列表）。语气多为嘲讽、愤怒与谴责，用词尖锐，整体表达出对新闻事件当事人及相关群体的..."
+    },
+    "sentiment_alignment": "不一致",
+    "total_comments": 97
+  },
+  {
+    "url": "https://bakusai.com/thr_res/acode=13/ctrid=1/ctgid=137/bid=5868/tid=13044121/bk=1/",
+    "title": "谷碧、グリーンビキニで魅せた“健康的エロス”腕を上げ振り返る「しなやかな曲線美」に絶賛の声が止まらない",
+    "article_sentiment": {
+      "sentiment": "积极",
+      "reason": "```json\n{\n    \"sentiment\": \"积极\",\n    \"reason\": \"文本整体语气和用词充满赞美与欣赏，如“圧倒的な人気”、“存在感は十分”、“健康的でしなやかなスタイルが目を引く”、“美しく”、“素敵ですよ”等正面描述贯穿全文，并提及公众“好意的な反応”，情感倾向明确为积极。\"\n}\n```"
+    },
+    "comment_sentiment": {
+      "sentiment": "消极",
+      "reason": "```json\n{\n    \"sentiment\": \"消极\",\n    \"reason\": \"评论区整体充斥着大量与性相关的低俗、猥亵内容（如“自慰”、“オナニー”、“ちんこ入れたい”等），以及不雅指令和粗俗比喻。语气轻浮、戏谑，且部分评论带有攻击性（如“うるさいわ！💢”）。尽管存在少数中性陈述（如关于艺名的说明），但整体用词和表达明显偏向低俗、冒犯和消极。\"\n}\n```"
+    },
+    "sentiment_alignment": "不一致",
+    "total_comments": 35
+  },
+  {
+    "url": "https://bakusai.com/thr_res/acode=13/ctrid=1/ctgid=137/bid=1177/tid=13048554/bk=1/",
+    "title": "FANTASTICS佐藤大樹「一瞬で虜になっちゃって」ACEesメンバーとの交流明かす【Mステ SUPER LIVE】",
+    "article_sentiment": {
+      "sentiment": "积极",
+      "reason": "```json\n{\n    \"sentiment\": \"积极\",\n    \"reason\": \"文本整体语气轻松愉快，使用了大量积极词汇和表达，如“笑顔を見せる”“虜になっちゃって”“盛り上げていた”“豪華”“奇跡のコラボ”“満載”等。内容主要描述艺人之间的友好互动、合作表演以及一场盛大的音乐直播活动，充满期待和欢乐的氛围，未涉及任何负面或争议性表述。\"\n}\n```"
+    },
+    "comment_sentiment": {
+      "sentiment": "消极",
+      "reason": "评论使用了粗俗、不雅的词汇（如“ケツ穴”），整体语气轻浮且带有性暗示，不符合积极或中性的表达规范。"
+    },
+    "sentiment_alignment": "不一致",
+    "total_comments": 1
+  },
+  {
+    "url": "https://bakusai.com/thr_res/acode=13/ctrid=1/ctgid=137/bid=1098/tid=13045426/bk=1/",
+    "title": "親子4人＋間男死亡の殺人事件、間男のスマホが母親の車から発見か",
+    "article_sentiment": {
+      "sentiment": "消极",
+      "reason": "```json\n{\n    \"sentiment\": \"消极\",\n    \"reason\": \"文本主体描述了一起导致多人死亡的悲剧事件，核心内容为案件报道。后续的论坛评论虽带有推测和讽刺语气，但整体语境围绕死亡、犯罪、绝望等负面主题展开，用词和讨论焦点均指向负面事件。\"\n}\n```"
+    },
+    "comment_sentiment": {
+      "sentiment": "消极",
+      "reason": "```json\n{\n    \"sentiment\": \"消极\",\n    \"reason\": \"评论区整体语气充满负面情绪，大量使用指责性、贬低性词汇（如“気持ち悪っ”、“酷いオンナ”、“殺人鬼”、“自業自得”），频繁出现对当事人（母亲、情夫）的道德批判和人身攻击，并伴随对悲剧事件（杀人、自杀）的冷漠调侃或猎奇讨论。虽有少数中性评论（如单纯引用报道内容），但无法扭转整体强烈的消极倾向。\"\n}\n``..."
+    },
+    "sentiment_alignment": "一致",
+    "total_comments": 84
+  },
+  {
+    "url": "https://bakusai.com/thr_res/acode=13/ctrid=1/ctgid=137/bid=1149/tid=13047851/bk=1/",
+    "title": "「スパイ呼ばわり」立民・岡田氏、中国との関係巡るネット情報に法的対応も 人脈作り強調",
+    "article_sentiment": {
+      "sentiment": "积极",
+      "reason": "```json\n{\n    \"sentiment\": \"中性\",\n    \"reason\": \"文本以客观陈述为主，报道了日本政治人物对网络言论的回应及其关于中日关系的观点。语言平实，未使用明显带有积极或消极情感色彩的词汇，整体语气冷静、事实性较强，旨在传达信息而非表达立场或情绪。\"\n}\n```"
+    },
+    "comment_sentiment": {
+      "sentiment": "积极",
+      "reason": "```json\n{\n  \"sentiment\": \"消极\",\n  \"reason\": \"评论区整体充斥着强烈的愤怒、辱骂和攻击性言论。大量评论使用侮辱性词汇（如“糞キムチ”、“工作員”、“売国奴”）、诅咒性语言（如“帰れよ”、“命も奪われた”）和重复的、情绪激昂的指控（如对自民党与特定组织关系的指责）。语气普遍表现为敌意、嘲讽和极度不满，缺乏中性讨论或积极表达。整体情感基调高度负面。\"\n}\n```"
+    },
+    "sentiment_alignment": "一致",
+    "total_comments": 201
+  },
+  {
+    "url": "https://bakusai.com/thr_res/acode=13/ctrid=1/ctgid=137/bid=2494/tid=13042813/bk=1/",
+    "title": "どうして中国人はあんなに路上でクソをするのが好きなんだ？",
+    "article_sentiment": {
+      "sentiment": "消极",
+      "reason": "```json\n{\n  \"sentiment\": \"消极\",\n  \"reason\": \"文本内容为网络论坛的讨论片段，涉及对特定群体（中国人）如厕习惯的负面描述和类比（如“野生動物と一緒だよ”），整体语气带有明显的嘲讽、批评和贬低倾向，用词和表达方式传递出消极情感。\"\n}\n```"
+    },
+    "comment_sentiment": {
+      "sentiment": "消极",
+      "reason": "评论区整体充斥着大量针对特定群体的侮辱性、歧视性言论和低俗比喻，用词粗鄙且充满恶意，语气普遍为嘲讽、贬低和攻击，整体情感倾向明显负面。"
+    },
+    "sentiment_alignment": "一致",
+    "total_comments": 72
+  },
+  {
+    "url": "https://bakusai.com/thr_res/acode=13/ctrid=1/ctgid=137/bid=2494/tid=13046799/bk=1/",
+    "title": "韓国 ウォン相場8カ月ぶりの安値、通貨スワップでも歯止めかからず",
+    "article_sentiment": {
+      "sentiment": "消极",
+      "reason": "```json\n{\n    \"sentiment\": \"消极\",\n    \"reason\": \"文本整体语气和用词聚焦于负面经济事件，如“下落した”（下跌）、“衰えない”（不衰退）、“危機”（危机）、“安値を記録した”（创下新低）、“効果がなく”（无效）等，描述了韩元汇率持续下跌、市场担忧加剧、干预措施未见效的态势，整体表达出忧虑和负面的情感倾向。\"\n}\n```"
+    },
+    "comment_sentiment": {
+      "sentiment": "消极",
+      "reason": "```json\n{\n    \"sentiment\": \"消极\",\n    \"reason\": \"评论整体语气充满嘲讽、贬低和攻击性，大量使用侮辱性词汇（如“ゴミクズ”“タカリ”）、诅咒性表达（如“さっさとほろべ”）以及否定性描述（如“何の影響も無い”“トイレットペーパー以下の価値”），配合大量网络嘲笑符号（如“ｗ”），整体情感倾向明显负面。\"\n}\n```"
+    },
+    "sentiment_alignment": "一致",
+    "total_comments": 17
+  },
+  {
+    "url": "https://bakusai.com/thr_res/acode=13/ctrid=1/ctgid=137/bid=2494/tid=13048542/bk=1/",
+    "title": "【インフラ】ホーチミン市メトロ2号線、200m延伸",
+    "article_sentiment": {
+      "sentiment": "中性",
+      "reason": "```json\n{\n    \"sentiment\": \"中性\",\n    \"reason\": \"文本以客观、平实的语气报道了胡志明市地铁2号线规划的调整细节，包括线路延伸、站点调整、成本控制、工程进展等。全文使用大量事实性、技术性描述词汇（如“承認する決定を公布した”、“再設定され”、“調整”、“見直した”、“計画”），没有表达明显的喜悦、赞扬或批评、担忧等情感色彩。报道重点在于传递规划变更的客观..."
+    },
+    "comment_sentiment": {
+      "sentiment": "消极",
+      "reason": "```json\n{\n  \"sentiment\": \"消极\",\n  \"reason\": \"评论内容“放置民”是一个网络用语，通常带有贬义或戏谑色彩，指代那些在游戏中或某些情境下采取消极、不作为态度的玩家或群体。该词本身含有负面评价的意味，整体语气偏向批评或嘲讽，因此整体情感倾向为消极。\"\n}\n```"
+    },
+    "sentiment_alignment": "不一致",
+    "total_comments": 1
+  },
+  {
+    "url": "https://bakusai.com/thr_res/acode=13/ctrid=1/ctgid=137/bid=2494/tid=13048592/bk=1/",
+    "title": "スマホで出張コーチを呼べる「スポーツデリバリー」がじわり普及―中国",
+    "article_sentiment": {
+      "sentiment": "积极",
+      "reason": "```json\n{\n    \"sentiment\": \"积极\",\n    \"reason\": \"文本整体语气和用词积极正面，通过多个用户案例（如林静、孔繁、高东月）的满意反馈，强调了“体育外卖”服务的便利性、灵活性和高效性，使用了“新たな選択肢”、“一石二鳥以上”、“ぴったり”、“フレキシブル”等积极词汇，并指出该服务正在快速普及、平台模式成熟，整体表达了对这一新兴服务模式的肯定和乐观态度。\"\n}..."
+    },
+    "comment_sentiment": {
+      "sentiment": "积极",
+      "reason": "```json\n{\n  \"sentiment\": \"中性\",\n  \"reason\": \"评论内容为一句简单的询问（“有桑拿吗？”），使用疑问句式，未包含明显的积极或消极情感词汇，语气平和，属于中性询问。\"\n}\n```"
+    },
+    "sentiment_alignment": "一致",
+    "total_comments": 1
+  },
+  {
+    "url": "https://bakusai.com/thr_res/acode=13/ctrid=1/ctgid=137/bid=2494/tid=13048214/bk=1/",
+    "title": "「芸術村」を創設、特色ある産業発展を促進―浙江省慈渓市",
+    "article_sentiment": {
+      "sentiment": "积极",
+      "reason": "```json\n{\n    \"sentiment\": \"积极\",\n    \"reason\": \"文本整体语气和用词积极正面，描述了通过艺术村建设、创业支持、人才培养等措施推动农村特色产业和旅游业发展，并使用了“后押ししている”（推动）、“力を入れ”（着力）、“推進し”（推进）、“寄与している”（做出贡献）等积极动词，明确表达了建设性、发展性的成果和贡献。\"\n}\n```"
+    },
+    "comment_sentiment": {
+      "sentiment": "消极",
+      "reason": "```json\n{\n  \"sentiment\": \"消极\",\n  \"reason\": \"评论整体语气带有明显的嘲讽和负面情绪。评论1虽为客观比较，但评论2使用强烈谴责语气和愤怒表情符号，评论3则直接以嘲讽语气（“ｗｗ”）贬低对象，整体负面表达占主导。\"\n}\n```"
+    },
+    "sentiment_alignment": "不一致",
+    "total_comments": 3
+  },
+  {
+    "url": "https://bakusai.com/thr_res/acode=13/ctrid=1/ctgid=137/bid=2494/tid=13048331/bk=1/",
+    "title": "太陽熱発電の総設備容量、2030年までに1500万kW規模を目指す―中国",
+    "article_sentiment": {
+      "sentiment": "积极",
+      "reason": "```json\n{\n    \"sentiment\": \"积极\",\n    \"reason\": \"文本整体语气和用词积极，主要描述了中国政府推动太阳能热发电大规模发展的政策、技术成就（如成本下降、产业链领先）和未来目标（如2030年目标）。虽然提及了当前挑战（如初期投资大），但重点在于强调发展潜力、支持措施和积极前景，因此整体情感倾向为积极。\"\n}\n```"
+    },
+    "comment_sentiment": {
+      "sentiment": "消极",
+      "reason": "```json\n{\n  \"sentiment\": \"消极\",\n  \"reason\": \"评论中使用了'最悪'、'💩'等明显贬义和侮辱性词汇，整体语气带有讽刺和负面情绪，表达了对相关主体的不满或蔑视。\"\n}\n```"
+    },
+    "sentiment_alignment": "不一致",
+    "total_comments": 4
+  },
+  {
+    "url": "https://bakusai.com/thr_res/acode=13/ctrid=1/ctgid=137/bid=1147/tid=13037000/bk=1/",
+    "title": "楽天・辰己、台湾メディアが台湾での二刀流の可能性を報道",
+    "article_sentiment": {
+      "sentiment": "积极",
+      "reason": "```json\n{\n    \"sentiment\": \"中性\",\n    \"reason\": \"文本以客观、陈述性的语气报道了一位日本棒球选手可能转会至台湾职业棒球联盟的消息。文中使用了“报じた”、“伝えた”、“紹介”等中性词汇，主要转述了媒体报道和相关信息，未使用明显带有积极或消极情感色彩的词语。整体上是对潜在转会动态的事实性描述，未表达支持、期待或批评等主观情感倾向。\"\n}\n```"
+    },
+    "comment_sentiment": {
+      "sentiment": "积极",
+      "reason": "```json\n{\n  \"sentiment\": \"中性\",\n  \"reason\": \"评论区整体语气较为分散，既有对球员前景的调侃和质疑（如“物好きなジャイアンツが取らないのか？”“過大評価”），也有中性的事实提及（如“今年の干支は巳年”“台湾🇹🇼にも楽天の球団あるじゃん”），以及少量积极表达（如“面白そう”“可愛いからな”）。多数评论偏向推测、疑问或客观陈述，未形成明显的积极或消极情绪集群，整..."
+    },
+    "sentiment_alignment": "一致",
+    "total_comments": 21
+  }
+]
