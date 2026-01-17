@@ -1,5 +1,7 @@
 # .gitignore
-config_secret.py       # 忽略包含密钥的文件
+# secrets
+config_secret.py
+**/config_secret.py      # 忽略包含密钥的文件
 *.pyc                 # 忽略Python缓存文件
 __pycache__/          # 忽略缓存目录
 .env                  # 忽略环境变量文件
