@@ -1,12 +1,14 @@
+# IDE
 .idea/
-__pycache__/ 
-*.pyc 
-# secrets
-config_secret.py
-**/config_secret.py
 
-# python cache
+# Python
 __pycache__/
 *.pyc
 
+# secrets (DO NOT COMMIT)
+config_secret.py
+**/config_secret.py
+
+# logs / notes
 my_revise_log/
+
